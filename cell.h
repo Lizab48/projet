@@ -16,7 +16,7 @@ typedef t_sk_cell *p_sk_cell;
 
 // FONCTIONS ASSOCIEES
 
-p_sk_cell Create_cell_sk (int , int);
+p_sk_cell Create_cell_sk (int, int);
 
 
 

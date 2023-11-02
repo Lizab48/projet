@@ -4,10 +4,14 @@
 
 #include "list.h"
 #include <stdio.h>
+#include <malloc.h>
 
 t_sk_list Create_empty_list(int level_max){   // a tester 
     t_sk_list mylist;
-    mylist.head = (t_sk_cell**)calloc(level_max, sizeof( t_sk_cell*));
+    mylist.head = (t_sk_cell**)malloc(level_max*sizeof( t_sk_cell*));
+    for (int i=0; i<level_max; i++){ //mettre toute les cases du tableau à vide sinon il vas il y avoir des valeurs inconnu et pour verifier si la liste est vide (si mylist.head[0]==NULL
+        mylist.head[i]=NULL;
+    }
     mylist.max_level = level_max;
     return mylist;
 }
@@ -24,9 +28,15 @@ int is_Empty_list(t_sk_list mylist){     // a tester
 }
 
 void Insert_in_list_head ( t_sk_list* mylist, t_sk_cell *cell){  // optimiser cette fonction
-        for (int i=0 ; i <= cell->level ; i++){
-            cell->values[i] = mylist->head[i];
-            mylist->head[i] = &(cell);
+
+        for (int i = 0; i <= cell->level; i++) {
+            if (mylist->head[i] != NULL) { //si le niveau est vide, met comme premier
+                cell->values[i] = mylist->head[i];
+                mylist->head[i] = cell; //-> pas besoin de mettre & car c'est deja un pointeur (c'est deja l'adresse)
+            }else {
+                mylist->head[i] = cell;
+                printf("inserer niveau vide\n");
+            }
         }
     return;
 }
@@ -93,7 +103,7 @@ void Insert_in_list_croissant(p_sk_list mylist, p_sk_cell cell){        // VRAIM
 
 
 void Display_list_simple (t_sk_list mylist){     // a tester
-    for (int i= 0 ; i <= mylist.max_level; i++){
+    for (int i= 0 ; i < mylist.max_level; i++){
         Display_level_list(mylist , i);
     }
     return;
