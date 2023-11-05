@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-p_sk_cell Create_cell_sk (int val , int level){
+p_sk_cell Create_cell_sk (int val , int level){ // level c'est 0 le premier normalement alors on fait quoi ? Ici, la manière dont c'est codé, on a dit que level c'est 1 le premier...
     p_sk_cell mycell;
     mycell = (p_sk_cell)malloc(sizeof (p_sk_cell)); // attention generer la place de la structure sinon ne fonctionne pas
     mycell->value = val;

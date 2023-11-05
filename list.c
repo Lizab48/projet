@@ -3,13 +3,16 @@
 //
 
 #include "list.h"
+#include "complementaire.h"
 #include <stdio.h>
 #include <malloc.h>
+#include <math.h>
 
 t_sk_list Create_empty_list(int level_max){   // a tester 
+    // retourne 
     t_sk_list mylist;
     mylist.head = (t_sk_cell**)malloc(level_max*sizeof( t_sk_cell*));
-    for (int i=0; i<level_max; i++){ //mettre toute les cases du tableau à vide sinon il vas il y avoir des valeurs inconnu et pour verifier si la liste est vide (si mylist.head[0]==NULL
+    for (int i=0; i<level_max; i++){ //mettre toute les cases du tableau à vide sinon il va y avoir des valeurs inconnu et pour verifier si la liste est vide (si mylist.head[0]==NULL
         mylist.head[i]=NULL;
     }
     mylist.max_level = level_max;
@@ -125,4 +128,31 @@ void Display_level_list (t_sk_list mylist, int level){  // a tester
 void testlist(){
     printf("ok");
     return;
+}
+
+
+// FONCTIONS PARTIES 2 :
+
+t_sk_list Create_level_list( int n){
+    t_sk_list mylist  = Create_empty_list(n);
+    // Initialisation de la liste avec les niveaux correspondant.
+    t_tab * mytab = level(n);   // comporte [0,1,0,2,0,1,0]
+    for (int i=1; i<= mytab->longueur ; i++){
+        p_sk_cell cell = Create_cell_sk(i , mytab->longueur);
+        Insert_in_list_head(&mylist , cell);
+    }
+    return mylist;
+}
+
+
+int Search_list_simple(,int n){
+    // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
+    //fonction à completer
+    return -1;
+}
+
+int Search_list_upper_level(t_sk_list mylist , int n){
+    // recherche dichotomique , à partir du plus haut niveau. o(n/2)
+    // fonction a completer
+    return -1;
 }

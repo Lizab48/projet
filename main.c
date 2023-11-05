@@ -5,7 +5,7 @@ void test_partie_1(){
     printf("Ceci est le test 1 : \n");
     testlist();
     t_sk_list mylist = Create_empty_list(5);
-    printf(" mylist est créer de longueur 5! \n");
+    printf(" mylist est créer de avec 5 niveaux (de 0 à 4?)! \n");
     p_sk_cell cell = Create_cell_sk(18, 1);    // revoir tout les types pointeurs ou nom des fonctions , est ce que c'est optimiser ?
     Insert_in_list_head ( &mylist , cell);
     printf(" la cellule de valeur 18 à 2 niveaux est inserée\n");
@@ -20,7 +20,7 @@ void test_partie_1(){
     printf(" AFFICHAGE ENSEMBLE DE LA LISTE:\n");
     Display_list_simple (mylist);
 
-    /* Hehe ?
+    /*
 • Insérer une cellule à niveau dans la liste, au bon endroit, de manière à ce que la
 liste reste triée par ordre croissant
 Pour cette dernière fonctionnalité, il est possible de faire une ‘simple’ insertion à
@@ -29,8 +29,19 @@ efficace, à vous de trouver comment. */
     return;
 }
 
+void test_partie_2(){
+    t_sk_list mylist = Create_level_list(3);
+    printf("liste crée avec succèes\n");
+    printf("AFFICHAGE LIST");
+    Display_list_simple(mylist);
+    printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_simple(mylist ,4) ); // fonction non codé
+    printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_upper_level(mylist , 4) ); // fonction non codé
+    return ;
+}
+
 int main() {
     printf("Hello, World!\n");
-    test_partie_1();
+    //test_partie_1();
+    test_partie_2();
     return 0;
 }
