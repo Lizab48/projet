@@ -8,7 +8,7 @@
 #include <malloc.h>
 #include <math.h>
 
-t_sk_list Create_empty_list(int level_max){   // a tester 
+t_sk_list Create_empty_list(int level_max){
     // retourne 
     t_sk_list mylist;
     mylist.head = (t_sk_cell**)malloc(level_max*sizeof( t_sk_cell*));
@@ -105,14 +105,14 @@ void Insert_in_list_croissant(p_sk_list mylist, p_sk_cell cell){        // VRAIM
 }
 
 
-void Display_list_simple (t_sk_list mylist){     // a tester
+void Display_list_simple (t_sk_list mylist){
     for (int i= 0 ; i < mylist.max_level; i++){
         Display_level_list(mylist , i);
     }
     return;
 }
 
-void Display_level_list (t_sk_list mylist, int level){  // a tester
+void Display_level_list (t_sk_list mylist, int level){
     // ATTENTION ; ON RAPPELLE QUE LES NIVEAU COMMENCE A ZERO !!! 
     printf("[ list head_%d @ ]-->", level);  
         t_sk_cell *temp = (mylist.head[level]);
@@ -133,22 +133,28 @@ void testlist(){
 
 // FONCTIONS PARTIES 2 :
 
-t_sk_list Create_level_list( int n){
+t_sk_list Create_level_list(int n){
     t_sk_list mylist  = Create_empty_list(n);
     // Initialisation de la liste avec les niveaux correspondant.
     t_tab * mytab = level(n);   // comporte [0,1,0,2,0,1,0]
     for (int i=1; i<= mytab->longueur ; i++){
-        p_sk_cell cell = Create_cell_sk(i , mytab->longueur);
+        p_sk_cell cell = Create_cell_sk(i, mytab->longueur);
         Insert_in_list_head(&mylist , cell);
     }
     return mylist;
 }
 
 
-int Search_list_simple(,int n){
+int Search_list_simple(t_sk_list mylist,int n){
     // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
-    //fonction à completer
-    return -1;
+    int i=0;
+    while ((mylist.head[i] != NULL) && (mylist.head[i]->value != n)){
+        i++;
+    }
+    if (mylist.head[i]->value == n)
+        return 1; //valeur trouvé
+    else
+        return 0; //valeur non trouvé
 }
 
 int Search_list_upper_level(t_sk_list mylist , int n){

@@ -1,5 +1,5 @@
 #include "complementaire.h"
-#include <stdlib.io>
+#include <stdlib.h>
 
 t_tab* level(int n){
     // 2 -> [0,1,0] sous forme d'un tableau dynamique
@@ -13,7 +13,7 @@ t_tab* level(int n){
         tab_0->longueur = 1;
         tab_0->value = (int*)malloc(sizeof(int));
         tab_0->value[0] = 0;       // a tester, les tableaux j'aime pas trop alors...
-        return tab_0
+        return tab_0;
     }
     else{
         t_tab* mytab;
@@ -22,13 +22,14 @@ t_tab* level(int n){
 
         mytab->longueur = tab_left->longueur + tab_right->longueur + 1; // normalement pareil que mytab->longueur = pow(2,n)-1 
 
-        tab_0->value = (int*)malloc(longueur*sizeof(int));
-        for (int i=0 ; i < tab_left->longueur ; i++){
-            tab_0->value[i] = tab_left->value[i]; 
+        mytab->value = (int*)malloc(mytab->longueur*sizeof(int));
+        int i;
+        for (i=0 ; i < tab_left->longueur ; i++){
+            mytab->value[i] = tab_left->value[i];
         }
-        tab_0->value[i] = (n-1);
-        for (j=i+1 ; i < mytab->longueur ; j++){
-            tab_0->value[j] = tab_right->value[j-i];  // a tester pas sure... 
+        mytab->value[i] = n-1;
+        for (int j=i+1 ; j < mytab->longueur ; j++){
+            mytab->value[j] = tab_right->value[j-i];  // a tester pas sure...
         }
         
         free(tab_left->value);
@@ -36,6 +37,5 @@ t_tab* level(int n){
         free(tab_right->value);
         free(tab_right);
         return mytab;
-
     }
 }
