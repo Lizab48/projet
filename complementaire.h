@@ -2,14 +2,13 @@
 #define PROJET__COMPLEMENTAIRE_H
 
 
-
 typedef struct s_cell_std{
     int value;
     struct s_cell_std * next;
 }t_cell_std;
 
 typedef struct s_std_list{
-    t_cell_std* head ;
+    t_cell_std* head ; 
 } t_std_list;
 
 typedef struct s_tab {

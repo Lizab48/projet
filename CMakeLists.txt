@@ -3,4 +3,4 @@ project(projet_ C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(projet_ main.c list.c list.h cell.c cell.h)
+add_executable(projet_ main.c list.c list.h cell.c cell.h complementaire.h)

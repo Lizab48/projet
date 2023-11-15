@@ -24,14 +24,14 @@ t_tab* level(int n){
 
         mytab->value = (int*)malloc(mytab->longueur*sizeof(int));
         int i;
-        for (i=0 ; i < tab_left->longueur ; i++){
-            mytab->value[i] = tab_left->value[i];
+        for ( i=0 ; i < tab_left->longueur ; i++){
+            mytab->value[i] = tab_left->value[i]; 
         }
-        mytab->value[i] = n-1;
-        for (int j=i+1 ; j < mytab->longueur ; j++){
-            mytab->value[j] = tab_right->value[j-i];  // a tester pas sure...
+        mytab->value[i] = (n-1);
+        for (int j=i+1 ; i < mytab->longueur ; j++){
+            mytab->value[j] = tab_right->value[j-i];  // a tester pas sure... 
         }
-        
+
         free(tab_left->value);
         free(tab_left);
         free(tab_right->value);

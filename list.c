@@ -5,6 +5,7 @@
 #include "list.h"
 #include "complementaire.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <malloc.h>
 #include <math.h>
 
@@ -145,7 +146,7 @@ t_sk_list Create_level_list(int n){
 }
 
 
-int Search_list_simple(t_sk_list mylist,int n){
+int Search_list_simple(t_sk_list mylist ,int n){
     // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
     int i=0;
     while ((mylist.head[i] != NULL) && (mylist.head[i]->value != n)){
