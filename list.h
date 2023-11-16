@@ -36,9 +36,15 @@ void testlist();
 
 t_sk_list Create_level_list( int );
 
-int Search_list_upper_level(t_sk_list, int); // a coder
+/*int Search_list_upper_level(t_sk_list, int); // a coder
 
 int Search_list_simple(t_sk_list, int); // a coder
+*/
+int Search_list_level_part (int , int , t_sk_cell*  );
+
+int Search_list_upper_level(t_sk_list, int);
+
+int Search_list_simple(t_sk_list, int);
 
 
 

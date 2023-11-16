@@ -6,11 +6,12 @@
 #include "complementaire.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
+//#include <malloc.h>
+#include <stdlib.h>
 #include <math.h>
 
 t_sk_list Create_empty_list(int level_max){
-    // retourne 
+    // retourne
     t_sk_list mylist;
     mylist.head = (t_sk_cell**)malloc(level_max*sizeof( t_sk_cell*));
     for (int i=0; i<level_max; i++){ //mettre toute les cases du tableau à vide sinon il va y avoir des valeurs inconnu et pour verifier si la liste est vide (si mylist.head[0]==NULL
@@ -33,15 +34,15 @@ int is_Empty_list(t_sk_list mylist){     // a tester
 
 void Insert_in_list_head ( t_sk_list* mylist, t_sk_cell *cell){  // optimiser cette fonction
 
-        for (int i = 0; i <= cell->level; i++) {
-            if (mylist->head[i] != NULL) { //si le niveau est vide, met comme premier
-                cell->values[i] = mylist->head[i];
-                mylist->head[i] = cell; //-> pas besoin de mettre & car c'est deja un pointeur (c'est deja l'adresse)
-            }else {
-                mylist->head[i] = cell;
-                printf("inserer niveau vide\n");
-            }
+    for (int i = 0; i <= cell->level; i++) {
+        if (mylist->head[i] != NULL) { //si le niveau est vide, met comme premier
+            cell->values[i] = mylist->head[i];
+            mylist->head[i] = cell; //-> pas besoin de mettre & car c'est deja un pointeur (c'est deja l'adresse)
+        }else {
+            mylist->head[i] = cell;
+            printf("inserer niveau vide\n");
         }
+    }
     return;
 }
 
@@ -49,20 +50,20 @@ void Insert_in_list_croissant(p_sk_list mylist, p_sk_cell cell){        // VRAIM
     if ( mylist->max_level <= (cell->level - 1) ){
         printf("La cellule ne peut pas être entrer dans la liste, car elle est trop longue");
         return;
-        }
-    if (is_Empty_list(*mylist)){       // si la liste est vide ; 
-        Insert_in_list_head( mylist , cell ); 
+    }
+    if (is_Empty_list(*mylist)){       // si la liste est vide ;
+        Insert_in_list_head( mylist , cell );
     }
     else{
-        p_sk_cell temp = mylist->head[0];     
+        p_sk_cell temp = mylist->head[0];
         if ( temp->value >= cell->value ){  // si la premiere cellule est plus petite que cell
             Insert_in_list_head( mylist , cell );
         }
         else{
             p_sk_cell prev  = temp;
             while(temp != NULL){  //parcours du premier niveau;
-                prev = temp ; 
-                temp = temp->values[0]; 
+                prev = temp ;
+                temp = temp->values[0];
                 if ( cell->value <= temp->value ){
                     // insertion cell, entre prev et temp.
 
@@ -86,20 +87,20 @@ void Insert_in_list_croissant(p_sk_list mylist, p_sk_cell cell){        // VRAIM
             }
             // ajouter en fin de liste.
             for (int i=0; i<= cell->level ; i++){
-                        cell->values[i] = prev->values[i];
-                        prev->values[i] = cell;
+                cell->values[i] = prev->values[i];
+                prev->values[i] = cell;
+            }
+            if ( cell->level > prev->level){
+                printf("La cellule ajouter est plus longue que prévu, le chainage n'est pas correctement fait");
+                for (int i= prev->level ; i <= cell->level; i++ ){
+                    p_sk_cell precedent = mylist->head[i];
+                    if (precedent->values[i]->value >= cell->value){
+                        // alors on fait le nouveau lien !
+                        cell->values[i] = precedent->values[i];
+                        precedent->values[i] = cell ;
                     }
-                    if ( cell->level > prev->level){
-                        printf("La cellule ajouter est plus longue que prévu, le chainage n'est pas correctement fait");
-                        for (int i= prev->level ; i <= cell->level; i++ ){
-                            p_sk_cell precedent = mylist->head[i];
-                            if (precedent->values[i]->value >= cell->value){
-                                // alors on fait le nouveau lien !
-                                cell->values[i] = precedent->values[i];
-                                precedent->values[i] = cell ;
-                            }
-                        }
-                    }
+                }
+            }
         }
     }
     return;
@@ -114,14 +115,14 @@ void Display_list_simple (t_sk_list mylist){
 }
 
 void Display_level_list (t_sk_list mylist, int level){
-    // ATTENTION ; ON RAPPELLE QUE LES NIVEAU COMMENCE A ZERO !!! 
-    printf("[ list head_%d @ ]-->", level);  
-        t_sk_cell *temp = (mylist.head[level]);
-        while( temp != NULL){
-            printf("[%d | @ ]-->", temp->value);
-            temp = temp->values[level];
-        }
-        printf("NULL\n");
+    // ATTENTION ; ON RAPPELLE QUE LES NIVEAU COMMENCE A ZERO !!!
+    printf("[ list head_%d @ ]-->", level);
+    t_sk_cell *temp = (mylist.head[level]);
+    while( temp != NULL){
+        printf("[%d | @ ]-->", temp->value);
+        temp = temp->values[level];
+    }
+    printf("NULL\n");
     return;
 }
 
@@ -136,16 +137,24 @@ void testlist(){
 
 t_sk_list Create_level_list(int n){
     t_sk_list mylist  = Create_empty_list(n);
+    //AFFICHAGE A SUPPRIMER
+    printf("liste vide créer pour level liste\n");
     // Initialisation de la liste avec les niveaux correspondant.
-    t_tab * mytab = level(n);   // comporte [0,1,0,2,0,1,0]
-    for (int i=1; i<= mytab->longueur ; i++){
-        p_sk_cell cell = Create_cell_sk(i, mytab->longueur);
+    t_tab * mytab = level(n);   // comporte [0,1,0,2,0,1,0] --> ok!
+    //Display tab
+    printf("Voici mon tableau pour n=%d : [",n);
+    for (int i=0; i<mytab->longueur ; i++){
+        printf(" %d ",mytab->value[i]);
+    }
+    printf("]\n");
+    for (int i=mytab->longueur; i>= 1 ; i--){
+        p_sk_cell cell = Create_cell_sk(i, mytab->value[i-1]);
         Insert_in_list_head(&mylist , cell);
     }
     return mylist;
 }
 
-
+/*
 int Search_list_simple(t_sk_list mylist ,int n){
     // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
     int i=0;
@@ -162,4 +171,52 @@ int Search_list_upper_level(t_sk_list mylist , int n){
     // recherche dichotomique , à partir du plus haut niveau. o(n/2)
     // fonction a completer
     return -1;
+}
+*/
+
+int Search_list_simple(t_sk_list mylist ,int n){ //a tester
+    // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
+    int i=0;
+    while ((i < mylist.max_level-1) && (mylist.head[i]->value != n)){
+        i++;
+    }
+    if (mylist.head[i]->value == n)
+        return 1; //valeur trouvé
+    else
+        return 0; //valeur non trouvé
+}
+
+
+
+
+int Search_list_level_part (int level, int n, t_sk_cell* cell_d ) { // a tester
+    // d pour la direstion de recherche -1 si il faut chercher a gauche, 1 si il faut chercher a droite,0 si la valeur n'est pas trouver
+    // i pour l'indice ou commencer
+    t_sk_cell* cell_s ;// = (t_sk_cell*) malloc(sizeof (t_sk_cell));
+    cell_s = cell_d;
+    while (cell_s->value <= n)
+    {
+        if (cell_s->values[level]==NULL)
+            return 0; // on arrive a la fin de la liste et on n'a pas trouver
+        cell_s = cell_s->values[level];
+    }
+    if (cell_s->value == n)
+        return 1; //valeur trouver;
+    else if (cell_s->value < n)
+        return Search_list_level_part(level-1,n,cell_d->values[level-1]); //on repart de la cellule du debut mais du niveaux du dessous
+    else
+        return Search_list_level_part(level-1, n, cell_s->values[level-1]);
+}
+
+int Search_list_upper_level(t_sk_list mylist , int n){ // a tester
+    // recherche dichotomique , à partir du plus haut niveau. o(n/2)
+    // fonction a completer
+    if (1== is_Empty_list(mylist)){
+        return 0; // pas dans la liste car elle est vide
+    }
+    else{
+        int level = mylist.max_level;
+        t_sk_cell* cell = mylist.head[level];
+        return Search_list_level_part(level, n, cell);
+    }
 }

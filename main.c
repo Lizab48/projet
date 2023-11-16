@@ -40,7 +40,7 @@ void test_partie_2(){
 }
 
 int main() {
-    printf("Hello, World!\n");
+    printf("Hello, World, coucou!\n");
     //test_partie_1();
     test_partie_2();
     return 0;
