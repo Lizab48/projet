@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "list.h"
-#include "appli_agenda.h"
+#include "agenda_list.h"
 
 void test_partie_1(){
     printf("Ceci est le test 1 : \n");
@@ -35,6 +35,7 @@ void test_partie_2(){
     printf("liste crée avec succèes\n");
     printf("AFFICHAGE LIST");
     Display_list_simple(mylist);
+    Display_level_list(mylist, 0);
     printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_simple(mylist ,4) ); // fonction non codé
     printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_upper_level(mylist , 2) ); // fonction non codé
     return;
@@ -45,7 +46,7 @@ void test_partie3(){
     char* mystr = scanString();
     int i =0;
     char c = mystr[i];
-    printf("Voici ma chaine  : %s\n", mystr);
+    printf("Voici ma chaine  : %s\n", mystr);  //-> fonctionne
     menu_agenda();
     printf("fin test part3.");
     return;
@@ -54,7 +55,7 @@ void test_partie3(){
 int main() {
     printf("Hello, World, coucou!\n");
     //test_partie_1();
-    //test_partie_2();
-    test_partie3();
+    test_partie_2();
+    //test_partie3();
     return 0;
 }

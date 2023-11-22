@@ -79,8 +79,8 @@ build CMakeFiles/projet_.dir/agenda.c.o: C_COMPILER__projet__unscanned_Debug /Us
   OBJECT_DIR = CMakeFiles/projet_.dir
   OBJECT_FILE_DIR = CMakeFiles/projet_.dir
 
-build CMakeFiles/projet_.dir/appli_agenda.c.o: C_COMPILER__projet__unscanned_Debug /Users/ethannoah0810/Desktop/Louise/CLionProjects/appli_agenda.c || cmake_object_order_depends_target_projet_
-  DEP_FILE = CMakeFiles/projet_.dir/appli_agenda.c.o.d
+build CMakeFiles/projet_.dir/agenda_list.c.o: C_COMPILER__projet__unscanned_Debug /Users/ethannoah0810/Desktop/Louise/CLionProjects/agenda_list.c || cmake_object_order_depends_target_projet_
+  DEP_FILE = CMakeFiles/projet_.dir/agenda_list.c.o.d
   FLAGS = -g -std=gnu11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6 -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/projet_.dir
   OBJECT_FILE_DIR = CMakeFiles/projet_.dir
@@ -93,7 +93,7 @@ build CMakeFiles/projet_.dir/appli_agenda.c.o: C_COMPILER__projet__unscanned_Deb
 #############################################
 # Link the executable projet_
 
-build projet_: C_EXECUTABLE_LINKER__projet__Debug CMakeFiles/projet_.dir/main.c.o CMakeFiles/projet_.dir/list.c.o CMakeFiles/projet_.dir/cell.c.o CMakeFiles/projet_.dir/complementaire.c.o CMakeFiles/projet_.dir/agenda.c.o CMakeFiles/projet_.dir/appli_agenda.c.o
+build projet_: C_EXECUTABLE_LINKER__projet__Debug CMakeFiles/projet_.dir/main.c.o CMakeFiles/projet_.dir/list.c.o CMakeFiles/projet_.dir/cell.c.o CMakeFiles/projet_.dir/complementaire.c.o CMakeFiles/projet_.dir/agenda.c.o CMakeFiles/projet_.dir/agenda_list.c.o
   FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6
   OBJECT_DIR = CMakeFiles/projet_.dir
   POST_BUILD = :

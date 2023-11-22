@@ -6,7 +6,7 @@
 #define PROJET__AGENDA_H
 
 // PARTIE 3 :
-// A FAIRE : Organiser le code en module.
+// TYPE STRUCTURES DE DONNEES
 typedef struct s_contact {
     char* nom;
     char* prenom;
@@ -50,16 +50,21 @@ typedef struct s_sk_cell_agenda {   //entree dans un agenda.
     int level;
     struct s_sk_cell_agenda ** values;
     char* value; // du type nom_prenom
-}t_sk_cell_agenda;
+}t_sk_cell_agenda ;
 
-typedef struct s_sk_list_agenda{
-    t_sk_cell_agenda ** head;
-    int max_level;
 
-}t_sk_list_agenda;  // agenda
-
-char *scanString(void); // je la mets ou cette fonction
+char *scanString(void); // je la mets ou cette fonction ?
 
 t_sk_cell_agenda * Create_entry_agenda(int , char*); //level , nom du contact  // utilise Create_entry_agenda() dans agenda.c
+
+
+//FONCTIONS DELETE.
+void Delete_sk_cell_agenda(t_sk_cell_agenda * );
+void Delete_agenda (p_agenda agenda);
+void Delete_contact(t_contact*);
+void Delete_rdv_list(t_std_list_rdv*);
+void Delete_rdv(t_rdv *);
+void Delete_hour (t_heure*);
+void Delete_date(t_date*);
 
 #endif //PROJET__AGENDA_H

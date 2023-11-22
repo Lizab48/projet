@@ -114,7 +114,7 @@ void Display_list_simple (t_sk_list mylist){
     return;
 }
 
-void Display_level_list (t_sk_list mylist, int level){
+void Display_level_list (t_sk_list mylist, int level){  // a quoi sert la variable level.
     // ATTENTION ; ON RAPPELLE QUE LES NIVEAU COMMENCE A ZERO !!!
     printf("[ list head_%d @ ]-->", level);
     t_sk_cell *temp = (mylist.head[level]);
@@ -171,9 +171,8 @@ int Search_list_simple(t_sk_list mylist ,int n){ //a tester
 
 
 int Search_list_level_part (int level, int val, p_sk_cell cell_depart, t_sk_list mylist ) { // a tester
-    // d pour la direstion de recherche -1 si il faut chercher a gauche, 1 si il faut chercher a droite,0 si la valeur n'est pas trouver
-    // i pour l'indice ou commencer
-    printf(" Searching list level part (level %d) (val %d) (current cell_depart %d)\n", level , val, cell_depart->value);
+
+    //printf(" Searching list level part (level %d) (val %d) (current cell_depart %d)\n", level , val, cell_depart->value);
     if ( cell_depart-> value == val){
         return 1;
     }

@@ -35,13 +35,69 @@ char *scanString(void) {
 }
 
 
+
 t_sk_cell_agenda * Create_entry_agenda(int level, char* nom){ // ATENTION level = niveau partant de 0.
     t_sk_cell_agenda* entry = (t_sk_cell_agenda*)malloc(sizeof(t_sk_cell_agenda));
     entry->value = nom;
     entry->level = level;
     entry->agenda = NULL;
+    entry->values = (t_sk_cell_agenda**) malloc(level * sizeof(t_sk_cell_agenda*));
     for (int i=0; i<=level ; i++){
         entry->values[i] = NULL;
     }
     return entry;
+}
+
+void Delete_sk_cell_agenda(t_sk_cell_agenda * cell){
+    if (cell->agenda != NULL){
+        Delete_agenda(cell->agenda);
+    }
+    //Delete_agenda(cell->agenda);
+    free( cell);  // a finir.
+    return;
+}
+
+void Delete_agenda (p_agenda agenda){
+    Delete_contact(&(agenda->personne));
+    Delete_rdv_list(&(agenda->rdv));
+    free(agenda);
+    return;
+}
+
+
+void Delete_contact(t_contact* c){
+    free(c);
+    return;
+}
+
+void Delete_rdv_list(t_std_list_rdv* list_rdv){
+    t_cell_rdv* temp = list_rdv->head;
+    t_cell_rdv * prev;
+    prev = temp;
+    while (temp != NULL){
+        Delete_rdv(&(prev->rdv));
+        free(prev);
+        temp = temp->next;
+        prev = temp;
+    }
+    free(list_rdv);
+    return;
+}
+
+void Delete_rdv(t_rdv * rdv){
+    Delete_date( &(rdv->date));
+    Delete_hour(&(rdv->duree_rdv));
+    Delete_hour(&(rdv->heure_rdv));
+    free(rdv);
+    return;
+}
+
+void Delete_hour (t_heure* h){
+    free(h);
+    return;
+}
+
+void Delete_date(t_date* d){
+    free(d);
+    return;
 }

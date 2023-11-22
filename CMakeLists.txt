@@ -7,7 +7,7 @@ add_executable(projet_ main.c list.c list.h cell.c cell.h complementaire.h compl
         agenda.c
         agenda.h
         agenda.h
-        appli_agenda.c
-        appli_agenda.h
-        appli_agenda.h
+        agenda_list.c
+        agenda_list.h
+        agenda_list.h
 noms.txt)
