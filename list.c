@@ -154,69 +154,95 @@ t_sk_list Create_level_list(int n){
     return mylist;
 }
 
-/*
-int Search_list_simple(t_sk_list mylist ,int n){
-    // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
-    int i=0;
-    while ((mylist.head[i] != NULL) && (mylist.head[i]->value != n)){
-        i++;
-    }
-    if (mylist.head[i]->value == n)
-        return 1; //valeur trouvé
-    else
-        return 0; //valeur non trouvé
-}
-
-int Search_list_upper_level(t_sk_list mylist , int n){
-    // recherche dichotomique , à partir du plus haut niveau. o(n/2)
-    // fonction a completer
-    return -1;
-}
-*/
 
 int Search_list_simple(t_sk_list mylist ,int n){ //a tester
     // recherche dans la liste uniquement depuis le premier niveau complexité o(n)
-    int i=0;
-    while ((i < mylist.max_level-1) && (mylist.head[i]->value != n)){
-        i++;
+    p_sk_cell cell = mylist.head[0];
+    while(cell !=NULL){
+        if ( cell->value == n){
+            return 1;
+        }
+        cell = cell->values[0];
     }
-    if (mylist.head[i]->value == n)
-        return 1; //valeur trouvé
-    else
-        return 0; //valeur non trouvé
+    return 0;
 }
 
 
 
 
-int Search_list_level_part (int level, int n, t_sk_cell* cell_d ) { // a tester
+int Search_list_level_part (int level, int val, p_sk_cell cell_depart, t_sk_list mylist ) { // a tester
     // d pour la direstion de recherche -1 si il faut chercher a gauche, 1 si il faut chercher a droite,0 si la valeur n'est pas trouver
     // i pour l'indice ou commencer
+    printf(" Searching list level part (level %d) (val %d) (current cell_depart %d)\n", level , val, cell_depart->value);
+    if ( cell_depart-> value == val){
+        return 1;
+    }
+    else if (cell_depart->value < val){  // si ma val se trouve dans le tableau de droite
+        if ( level ==0){
+            return 0;
+        }
+        else{ // c'est pas bon tu oublie ma cellule 0.
+            return Search_list_level_part( level-1, val, cell_depart->values[level-1], mylist);
+        }
+    }
+    else if (cell_depart->value > val){ // si ma val se trouve dans le tableau de gauche
+        p_sk_cell temp = cell_depart->values[level];
+        while (temp != NULL){
+            if (temp->value == val){
+                return 1;
+            }
+            else{
+                temp = temp->values[level];
+            }
+        }
+        if ( level == 0){
+            return 0;
+        }
+        else {
+            return Search_list_level_part(level-1 , val , mylist.head[level-1], mylist);
+
+        }
+    }
+
+    /*
     t_sk_cell* cell_s ;// = (t_sk_cell*) malloc(sizeof (t_sk_cell));
     cell_s = cell_d;
-    while (cell_s->value <= n)
+    while (cell_s->value <= val)
     {
         if (cell_s->values[level]==NULL)
             return 0; // on arrive a la fin de la liste et on n'a pas trouver
         cell_s = cell_s->values[level];
     }
-    if (cell_s->value == n)
+    if (cell_s->value == val)
         return 1; //valeur trouver;
-    else if (cell_s->value < n)
-        return Search_list_level_part(level-1,n,cell_d->values[level-1]); //on repart de la cellule du debut mais du niveaux du dessous
+    else if (cell_s->value < val)
+        return Search_list_level_part(level-1,val,cell_d->values[level-1]); //on repart de la cellule du debut mais du niveaux du dessous
     else
-        return Search_list_level_part(level-1, n, cell_s->values[level-1]);
+        return Search_list_level_part(level-1, val, cell_s->values[level-1]);
+    */
 }
 
-int Search_list_upper_level(t_sk_list mylist , int n){ // a tester
+int Search_list_upper_level(t_sk_list mylist , int val){ // a tester
     // recherche dichotomique , à partir du plus haut niveau. o(n/2)
     // fonction a completer
-    if (1== is_Empty_list(mylist)){
-        return 0; // pas dans la liste car elle est vide
+    if (is_Empty_list(mylist)){
+        return 0;
     }
     else{
-        int level = mylist.max_level;
-        t_sk_cell* cell = mylist.head[level];
-        return Search_list_level_part(level, n, cell);
+        int level = mylist.max_level -1;
+        p_sk_cell cell = mylist.head[level];
+        return Search_list_level_part(level, val, cell, mylist);
     }
+}
+
+void Delete_sk_list(t_sk_list* mylist){
+    p_sk_cell temp =mylist->head[0];
+    p_sk_cell prev = temp;
+    while ( temp!=NULL){
+        temp = prev->values[0];
+        Delete_sk_cell(prev);
+        prev = temp;
+    }
+    free(mylist);
+    return;
 }

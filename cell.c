@@ -17,3 +17,8 @@ p_sk_cell Create_cell_sk (int val , int level){ // level c'est 0 le premier norm
     }
     return mycell;
 }
+
+void Delete_sk_cell(t_sk_cell* cell){
+    free(cell);
+    return;
+}

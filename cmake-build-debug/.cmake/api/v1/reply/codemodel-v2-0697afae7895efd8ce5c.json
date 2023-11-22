@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.24"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "projet_::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-projet_-Debug-767d4f2bcc136962b39b.json",
+					"jsonFile" : "target-projet_-Debug-2627adc96942ea74f240.json",
 					"name" : "projet_",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/loeiz/OneDrive - Efrei/Loeiz/Efrei/Cours/C/projet/cmake-build-debug",
-		"source" : "C:/Users/loeiz/OneDrive - Efrei/Loeiz/Efrei/Cours/C/projet"
+		"build" : "/Users/ethannoah0810/Desktop/Louise/CLionProjects/cmake-build-debug",
+		"source" : "/Users/ethannoah0810/Desktop/Louise/CLionProjects"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 5
 	}
 }

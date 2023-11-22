@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "list.h"
+#include "appli_agenda.h"
 
 void test_partie_1(){
     printf("Ceci est le test 1 : \n");
@@ -19,7 +20,7 @@ void test_partie_1(){
     // VERIFICATION : 
     printf(" AFFICHAGE ENSEMBLE DE LA LISTE:\n");
     Display_list_simple (mylist);
-
+    Delete_sk_list(&mylist);
     /*
 • Insérer une cellule à niveau dans la liste, au bon endroit, de manière à ce que la
 liste reste triée par ordre croissant
@@ -35,13 +36,25 @@ void test_partie_2(){
     printf("AFFICHAGE LIST");
     Display_list_simple(mylist);
     printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_simple(mylist ,4) ); // fonction non codé
-    printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_upper_level(mylist , 4) ); // fonction non codé
-    return ;
+    printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d",Search_list_upper_level(mylist , 2) ); // fonction non codé
+    return;
+}
+
+void test_partie3(){
+    printf("Test de scanString()\n");
+    char* mystr = scanString();
+    int i =0;
+    char c = mystr[i];
+    printf("Voici ma chaine  : %s\n", mystr);
+    menu_agenda();
+    printf("fin test part3.");
+    return;
 }
 
 int main() {
     printf("Hello, World, coucou!\n");
     //test_partie_1();
-    test_partie_2();
+    //test_partie_2();
+    test_partie3();
     return 0;
 }

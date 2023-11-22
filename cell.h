@@ -18,9 +18,7 @@ typedef t_sk_cell *p_sk_cell;
 
 p_sk_cell Create_cell_sk (int, int);
 
-
-
-
+void Delete_sk_cell(t_sk_cell*);
 
 
 

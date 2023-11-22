@@ -8,7 +8,6 @@
 #include "complementaire.h"
 
 
-
 typedef struct s_sk_list{
     t_sk_cell ** head;
     int max_level;
@@ -36,16 +35,15 @@ void testlist();
 
 t_sk_list Create_level_list( int );
 
-/*int Search_list_upper_level(t_sk_list, int); // a coder
-
-int Search_list_simple(t_sk_list, int); // a coder
-*/
-int Search_list_level_part (int , int , t_sk_cell*  );
+int Search_list_level_part (int , int , t_sk_cell* , t_sk_list );
 
 int Search_list_upper_level(t_sk_list, int);
 
 int Search_list_simple(t_sk_list, int);
 
+// AUTRES :
+
+void Delete_sk_list(t_sk_list*);
 
 
 #endif //PROJET__LIST_H
