@@ -17,7 +17,7 @@ void test_partie_1(){
     //En option : afficher tous les niveaux de la liste, en alignant les cellules
     p_sk_cell cell2 = Create_cell_sk(13 , 0);
     Insert_in_list_croissant(&mylist , cell2);
-    // VERIFICATION : 
+    // VERIFICATION :
     printf(" AFFICHAGE ENSEMBLE DE LA LISTE:\n");
     Display_list_simple (mylist);
     Delete_sk_list(&mylist);
@@ -43,7 +43,7 @@ void test_partie_2(){
 
 void test_partie3(){
     printf("Test de scanString()\n");
-    char* mystr = scanString();
+    char* mystr = scanString("Selectionnez votre nom sous la forme 'nom prenom' : ");
     int i =0;
     char c = mystr[i];
     printf("Voici ma chaine  : %s\n", mystr);  //-> fonctionne
@@ -55,7 +55,7 @@ void test_partie3(){
 int main() {
     printf("Hello, World, coucou!\n");
     //test_partie_1();
-    test_partie_2();
-    //test_partie3();
+    //test_partie_2();
+    test_partie3();
     return 0;
 }

@@ -1,0 +1,86 @@
+void Filling_agenda_w_contacts(int ncontact, t_sk_list_agenda* list_agenda, char* fichier_name){
+
+    FILE * fichier = fopen(fichier_name, "r");
+    if ( fichier==NULL){
+        printf("erreur ouverture fichier\n");
+    }
+    else{
+        int pas = rand() % 219; //seul pbm, les noms apres 218 000 ne seront jamais choisi.
+        char* ligne;
+        int i=0; // mon iterateur pour avoir le pas.
+        int n=0; // mon iterateur pour avoir le nombre de contact dans ma liste d'agenda
+        t_sk_cell_agenda * temp = list_agenda->head[0];
+
+        while (fgets(ligne, 20, fichier) != NULL && n< ncontact){ // On lit le fichier ligne pas ligne tant qu'on ne reçoit pas d'erreur (NULL)
+            if (i == pas){
+                printf("Nom selecioné : %s\n", ligne);
+                i=0;
+                pas = rand() % 219;
+                //ajoute un contact dans l'agenda du nom suivant.
+                t_sk_cell_agenda * myentry = Create_entry_agenda(0,ligne);  // pour l'instant la chaine est simplement chainée au premier niveau.
+                temp->values[0]= myentry;
+                temp = myentry;
+                n++;
+            }
+            else{
+                i++; // pas sur de l'endroit ou j'ai mis l'iteration.
+            }
+        }
+
+        //fgets( ligne,20, fichier );  // stocke dans ligne la ligne (de taille max 20 characteres) dans le fichier.// lecture ligne pas ligne.
+        fclose(fichier);
+    }
+}
+
+
+
+
+
+char *scanString(char* message) {
+    int T_L = 10; //taille logique variable
+    int index = 0;
+
+    // Allouer de la mémoire pour le tableau de caractères
+    char* mystr = (char *)malloc(T_L * sizeof(char));
+
+    printf("%s",message);
+    char c; // CHAT GPT MA DIT DE METTRE INT A LA PLACE MAIS J42I PAS COMPRIS... CHAR->> ook! vs INT->> ok! c'est a dire il double la premiere lettre
+    while ((c = getchar()) != '\n') {
+        if (index == T_L - 1) { // On a plus la place dans le tableau
+            T_L += 10;
+            mystr = (char *)realloc(mystr, T_L * sizeof(char));
+
+            if (mystr == NULL) {
+                printf("Erreur realloc\n");
+                return "";
+            }
+        }
+        mystr[index] = c;
+        index++;
+    }
+    mystr[index] = '\0';
+
+    return mystr;
+}
+
+
+
+
+
+        int pas = 100;
+        //int pas = rand() % 219 +1; //seul pbm, les noms apres 218 000 ne seront jamais choisi.
+        printf("pas :  %d", pas);
+        char* ligne;
+        int i=0; // mon iterateur pour avoir le pas.
+        int n=0; // mon iterateur pour avoir le nombre de contact dans ma liste d'agenda
+        t_sk_cell_agenda * temp = list_agenda->head[0];
+        while (fgets(ligne, 20, fichier) != NULL && n< ncontact){ // On lit le fichier ligne pas ligne tant qu'on ne reçoit pas d'erreur (NULL)
+            if (i == pas){
+                printf("Nom selecioné : %s\n", ligne);
+                i=0;
+                pas = 100;
+                //ajoute un contact dans l'agenda du nom suivant.
+                t_sk_cell_agenda * myentry = Create_entry_agenda(0,ligne);  // pour l'instant la chaine est simplement chainée au premier niveau.
+                temp->values[0]= myentry;
+                temp = myentry;
+                n++;
