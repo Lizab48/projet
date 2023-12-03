@@ -10,4 +10,5 @@ add_executable(projet_ main.c list.c list.h cell.c cell.h complementaire.h compl
         agenda_list.c
         agenda_list.h
         agenda_list.h
-noms.txt)
+noms.txt
+        timer.c)
