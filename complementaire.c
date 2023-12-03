@@ -1,9 +1,19 @@
 #include "complementaire.h"
 #include <stdlib.h>
 
+int power (int a, int n){
+    // a puissance n
+    int res = a;
+    for (int i=1; i<n; i++){
+        res = res*a;
+    }
+    return res;
+}
+
 t_tab* level(int n){
     // 2 -> [0,1,0] sous forme d'un tableau dynamique
     // 3 -> [0,1,0,2,0,1,0] sous forme d'un tableau dynamique
+    // 4 -> expected :[0  1  0  2  0  1  0  3  0  1  0  2  0  1  0]   ->   return :[0  1  0  2  0  1  0  3  2  0  1  0  0  0  0]
     // Permet de generer l'ordre des niveaux des cellules.
     if (n==0){
         return NULL;
@@ -26,7 +36,7 @@ t_tab* level(int n){
         int i;
         for ( i=0 ; i < tab_left->longueur ; i++){
             mytab->value[i] = tab_left->value[i];
-            mytab->value[i+n+1] = tab_right->value[i];
+            mytab->value[i+power(2,n-1)-1+1] = tab_right->value[i]; //a tester
         }
         mytab->value[i] = n-1;
         free(tab_left->value);

@@ -11,10 +11,10 @@
 #include <math.h>
 
 t_sk_list Create_empty_list(int level_max){
-    // retourne
+
     t_sk_list mylist;
     mylist.head = (t_sk_cell**)malloc(level_max*sizeof( t_sk_cell*));
-    for (int i=0; i<level_max; i++){ //mettre toute les cases du tableau à vide sinon il va y avoir des valeurs inconnu et pour verifier si la liste est vide (si mylist.head[0]==NULL
+    for (int i=0; i<level_max; i++){ //mettre toutes les cases du tableau à vide sinon il va y avoir des valeurs inconnu et pour verifier si la liste est vide (si mylist.head[0]==NULL
         mylist.head[i]=NULL;
     }
     mylist.max_level = level_max;
@@ -32,72 +32,82 @@ int is_Empty_list(t_sk_list mylist){     // a tester
     return vide;
 }
 
-void Insert_in_list_head ( t_sk_list* mylist, t_sk_cell *cell){  // optimiser cette fonction
+void Insert_in_list_head ( t_sk_list* mylist, t_sk_cell *cell_new){  // optimiser cette fonction
 
-    for (int i = 0; i <= cell->level; i++) {
+    for (int i = 0; i <= cell_new->level; i++) {
         if (mylist->head[i] != NULL) { //si le niveau est vide, met comme premier
-            cell->values[i] = mylist->head[i];
-            mylist->head[i] = cell; //-> pas besoin de mettre & car c'est deja un pointeur (c'est deja l'adresse)
+            cell_new->values[i] = mylist->head[i];
+            mylist->head[i] = cell_new; //-> pas besoin de mettre & car c'est deja un pointeur (c'est deja l'adresse)
         }else {
-            mylist->head[i] = cell;
-            printf("inserer niveau vide\n");
+            mylist->head[i] = cell_new;
         }
     }
     return;
 }
 
-void Insert_in_list_croissant(p_sk_list mylist, p_sk_cell cell){        // VRAIMENT PAS CERTAINE °-°
-    if ( mylist->max_level <= (cell->level - 1) ){
+void Insert_in_list_croissant(p_sk_list mylist, p_sk_cell new_cell){
+    if ( mylist->max_level <= (new_cell->level - 1) ){    // si le nombre de niveaux de la cellule est trop grand
         printf("La cellule ne peut pas être entrer dans la liste, car elle est trop longue");
         return;
     }
     if (is_Empty_list(*mylist)){       // si la liste est vide ;
-        Insert_in_list_head( mylist , cell );
+        Insert_in_list_head( mylist , new_cell );
     }
     else{
         p_sk_cell temp = mylist->head[0];
-        if ( temp->value >= cell->value ){  // si la premiere cellule est plus petite que cell
-            Insert_in_list_head( mylist , cell );
+        if ( temp->value >= new_cell->value ){  // si la premiere cellule est plus grande que new_cell
+            Insert_in_list_head( mylist , new_cell );
         }
         else{
             p_sk_cell prev  = temp;
             while(temp != NULL){  //parcours du premier niveau;
-                prev = temp ;
-                temp = temp->values[0];
-                if ( cell->value <= temp->value ){
+
+                if ( new_cell->value <= temp->value ){ // a tester
                     // insertion cell, entre prev et temp.
 
-                    for (int i=0; i<= cell->level ; i++){
-                        cell->values[i] = prev->values[i];
-                        prev->values[i] = cell;
+                    for (int i=0; i<= new_cell->level ; i++){
+                        new_cell->values[i] = prev->values[i];
+                        prev->values[i] = new_cell;
                     }
-                    if ( cell->level > prev->level){
+                    if ( new_cell->level > prev->level){
                         printf("La cellule ajouter est plus longue que prévu, le chainage n'est pas correctement fait");
-                        for (int i= prev->level ; i <= cell->level; i++ ){
+                        for (int i= prev->level +1; i <= new_cell->level; i++ ){
+
                             p_sk_cell precedent = mylist->head[i];
-                            if (precedent->values[i]->value >= cell->value){
+                            if (precedent == NULL){
                                 // alors on fait le nouveau lien !
-                                cell->values[i] = precedent->values[i];
-                                precedent->values[i] = cell ;
+                                precedent = new_cell ;
+                            }
+                            else if (precedent->value >= new_cell->value){
+                                // alors on fait le nouveau lien !
+                                printf(" %d >= %d",precedent->value ,new_cell->value);
+                                new_cell->values[i] = precedent;
+                                mylist->head[i] = new_cell;
                             }
                         }
                     }
                     return ;
                 }
+                prev = temp ;
+                temp = temp->values[0];
             }
             // ajouter en fin de liste.
-            for (int i=0; i<= cell->level ; i++){
-                cell->values[i] = prev->values[i];
-                prev->values[i] = cell;
+            for (int i=0; i<= prev->level ; i++){
+                prev->values[i] = new_cell;
             }
-            if ( cell->level > prev->level){
+            if ( new_cell->level > prev->level){
                 printf("La cellule ajouter est plus longue que prévu, le chainage n'est pas correctement fait");
-                for (int i= prev->level ; i <= cell->level; i++ ){
+                for (int i= prev->level +1; i <= new_cell->level; i++ ){
                     p_sk_cell precedent = mylist->head[i];
-                    if (precedent->values[i]->value >= cell->value){
+                    if (precedent ==NULL){
                         // alors on fait le nouveau lien !
-                        cell->values[i] = precedent->values[i];
-                        precedent->values[i] = cell ;
+                        mylist->head[i] = new_cell;
+                    }
+                    else if (precedent->value >= new_cell->value){
+                        // alors on fait le nouveau lien !
+                        printf(" %d >= %d",precedent->value ,new_cell->value);
+                        new_cell->values[i] = precedent;
+                        mylist->head[i] = new_cell;
                     }
                 }
             }
@@ -127,12 +137,6 @@ void Display_level_list (t_sk_list mylist, int level){  // a quoi sert la variab
 }
 
 
-void testlist(){
-    printf("ok");
-    return;
-}
-
-
 // FONCTIONS PARTIES 2 :
 
 t_sk_list Create_level_list(int n){
@@ -147,6 +151,7 @@ t_sk_list Create_level_list(int n){
         printf(" %d ",mytab->value[i]);
     }
     printf("]\n");
+
     for (int i=mytab->longueur; i>= 1 ; i--){
         p_sk_cell cell = Create_cell_sk(i, mytab->value[i-1]);
         Insert_in_list_head(&mylist , cell);
@@ -242,6 +247,6 @@ void Delete_sk_list(t_sk_list* mylist){
         Delete_sk_cell(prev);
         prev = temp;
     }
-    free(mylist);
+    //free(mylist); -> provoque une erreur... je ne comprends pas
     return;
 }

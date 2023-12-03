@@ -18,4 +18,6 @@ typedef struct s_tab {
 
 t_tab* level(int);
 
+int power(int,int);
+
 #endif //PROJET__COMPLEMENTAIRE_H

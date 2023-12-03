@@ -29,8 +29,6 @@ void Display_list_simple (t_sk_list);
 
 void Display_level_list (t_sk_list , int );
 
-void testlist();
-
 // PARTIE 2 : 
 
 t_sk_list Create_level_list( int );
