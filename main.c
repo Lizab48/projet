@@ -40,7 +40,7 @@ void test_partie_2(){
     printf("\nAFFICHAGE LIST SIMPLE: \n");
     Display_list_simple(mylist);
     printf("\nAFFICHAGE LIST NIVEAUX : \n");
-    Display_level_list(mylist, 0);
+    Display_level_list(mylist, 2);
     printf("\nOn a chercher la valeur 4 dans la liste, la fonction renvoie : %d\n",Search_list_simple(mylist ,4) );
     printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d\n",Search_list_upper_level(mylist , 2) );
     printf ("Comparaison de compléxité : \n                             Recherche simple                 Recherche dichotomique\n");

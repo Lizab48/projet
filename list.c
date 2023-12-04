@@ -23,7 +23,7 @@ t_sk_list Create_empty_list(int level_max){
 
 int is_Empty_list(t_sk_list mylist){     // a tester
     int vide = 1;
-    for (int i=0 ; i<= mylist.max_level ; i++){
+    for (int i=0 ; i< mylist.max_level ; i++){
         if (mylist.head[i] != NULL ){
             vide = 0;
             return vide;
@@ -37,7 +37,7 @@ void Insert_in_list_head ( t_sk_list* mylist, t_sk_cell *cell_new){  // optimise
     for (int i = 0; i <= cell_new->level; i++) {
         if (mylist->head[i] != NULL) { //si le niveau est vide, met comme premier
             cell_new->values[i] = mylist->head[i];
-            mylist->head[i] = cell_new; //-> pas besoin de mettre & car c'est deja un pointeur (c'est deja l'adresse)
+            mylist->head[i] = cell_new;
         }else {
             mylist->head[i] = cell_new;
         }
@@ -127,7 +127,8 @@ void Display_list_simple (t_sk_list mylist){
 void Display_level_list (t_sk_list mylist, int level){  // a quoi sert la variable level.
     // ATTENTION ; ON RAPPELLE QUE LES NIVEAU COMMENCE A ZERO !!!
     printf("[ list head_%d @ ]-->", level);
-    t_sk_cell *temp = (mylist.head[level]);
+
+    p_sk_cell temp = (mylist.head[level]);
     while( temp != NULL){
         printf("[%d | @ ]-->", temp->value);
         temp = temp->values[level];
@@ -139,10 +140,12 @@ void Display_level_list (t_sk_list mylist, int level){  // a quoi sert la variab
 
 // FONCTIONS PARTIES 2 :
 
-t_sk_list Create_level_list(int n){
+t_sk_list Create_level_list(int n){            //n le nombre de niveau
     t_sk_list mylist  = Create_empty_list(n);
     //AFFICHAGE A SUPPRIMER
+
     printf("liste vide créer pour level liste\n");
+    Display_list_simple(mylist);
     // Initialisation de la liste avec les niveaux correspondant.
     t_tab * mytab = level(n);   // comporte [0,1,0,2,0,1,0] --> ok!
     //Display tab
@@ -153,8 +156,11 @@ t_sk_list Create_level_list(int n){
     printf("]\n");
 
     for (int i=mytab->longueur; i>= 1 ; i--){
-        p_sk_cell cell = Create_cell_sk(i, mytab->value[i-1]);
+        p_sk_cell cell = Create_cell_sk(i, mytab->value[i-1]);  // value , niveau
+        //Insert_in_list_croissant(&mylist , cell);
         Insert_in_list_head(&mylist , cell);
+        printf(" Insertion reussi apriori : level%d %d\n",mytab->value[i-1] , i);
+        //Display_list_simple(mylist);
     }
     return mylist;
 }

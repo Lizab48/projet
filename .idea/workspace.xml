@@ -22,18 +22,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e6501cba-b1fe-4523-a695-e2a9260d4a17" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cell.c" beforeDir="false" afterPath="$PROJECT_DIR$/cell.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/projet_.dir/cell.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/projet_.dir/cell.c.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/projet_.dir/list.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/projet_.dir/list.c.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/projet_.dir/main.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/projet_.dir/main.c.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/projet_" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/projet_" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/complementaire.c" beforeDir="false" afterPath="$PROJECT_DIR$/complementaire.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/complementaire.h" beforeDir="false" afterPath="$PROJECT_DIR$/complementaire.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/list.c" beforeDir="false" afterPath="$PROJECT_DIR$/list.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/list.h" beforeDir="false" afterPath="$PROJECT_DIR$/list.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +114,7 @@
       <workItem from="1701328962578" duration="7340000" />
       <workItem from="1701426119368" duration="8503000" />
       <workItem from="1701635259142" duration="5810000" />
-      <workItem from="1701641147718" duration="2346000" />
+      <workItem from="1701641147718" duration="6642000" />
     </task>
     <servers />
   </component>
