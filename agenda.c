@@ -34,10 +34,7 @@ p_contact Create_p_contact(char * name){
         contact->nom[i]=name[i];
         i++;
     }
-    int j =i;
-    while (name[i] != '\n' && name[i] != '\0'){
-        contact->prenom[i-j]=name[i];
-    }
+    contact->prenom="";
     return contact;
 }
 
@@ -120,6 +117,7 @@ void add_rdv (p_agenda agenda){// lance tout les fonctions necessaires pour ajou
     scanf("%d",&h2);
     printf("Duree minute : ");
     scanf("%d",&m2);
+    fflush(stdin);
     char * obj = scanString("Objet du rdv : ");
     add_rdv_to_p_agenda(agenda,Create_t_rdv(Create_t_date(j,m,a), Create_t_heure(h1,m1), Create_t_heure(h2,m2),obj));
     printf("Le rdv a ete ajoute\n");
@@ -175,7 +173,7 @@ void Display_list_rdv(t_std_list_rdv* list_rdv){
 
 
 
-void delete_search_rdv(t_std_list_rdv* list_rdv){
+void delete_search_rdv_date(t_std_list_rdv* list_rdv){
     int a,m,j,h1,m1;
     printf("Selectionnez les information du rdv pour le supprimer\n");
     printf("Jour : ");
@@ -211,6 +209,31 @@ void delete_search_rdv(t_std_list_rdv* list_rdv){
     return;
 }
 
+
+void delete_search_rdv_obj(t_std_list_rdv* list_rdv){
+    char * obj = scanString("Objet du rdv recherché :\n");
+    p_cell_rdv cell_rdv = list_rdv->head;
+    p_cell_rdv pres = cell_rdv;
+    //si premiere cell
+    if (strcmp( obj , cell_rdv->rdv->obj_rdv)==0){  //a voir
+        list_rdv->head = cell_rdv->next;
+        Delete_cell_rdv(cell_rdv);
+        printf("Le rdv a bien ete supprime\n");
+        return ;
+    }
+    while(cell_rdv != NULL){
+        if (strcmp( obj , cell_rdv->rdv->obj_rdv)==0){
+            pres->next = cell_rdv->next;
+            Delete_cell_rdv(cell_rdv);
+            printf("Le rdv a bien ete supprime\n");
+            return;
+        }
+        pres = cell_rdv;
+        cell_rdv = cell_rdv->next;
+    }
+    printf("Le rdv n'existe pas\n");
+    return;
+}
 
 
 //-------------------------FCT Delete-------------------------------

@@ -37,6 +37,8 @@ void Insert_entry_agenda_in_list (p_sk_cell_agenda , t_sk_list_agenda*); // Fonc
 void Display_list_simple_agenda (t_sk_list_agenda);
 void Display_level_list_agenda (t_sk_list_agenda mylist, int level);
 
+//SAUVEGARDE DE L'AGENDA
+void Save_rdv_in_file(t_sk_list_agenda);
 
 void Delete_list_agenda(t_sk_list_agenda*);
 #endif //PROJET__AGENDA_LIST_H

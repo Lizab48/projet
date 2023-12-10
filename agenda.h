@@ -71,7 +71,8 @@ void add_rdv (p_agenda agenda); // lance tout les fonctions necessaire pour ajou
 void add_rdv_to_p_agenda (p_agenda, t_rdv*);
 t_rdv* Create_t_rdv (t_date*, t_horaire*, t_horaire*, char *);
 t_cell_rdv * Create_t_cell_rdv (t_rdv *);
-void delete_search_rdv(t_std_list_rdv*);
+void delete_search_rdv_date(t_std_list_rdv*);
+void delete_search_rdv_obj(t_std_list_rdv*);
 void Display_rdv (t_rdv*);
 void Display_list_rdv(t_std_list_rdv* rdv);
 

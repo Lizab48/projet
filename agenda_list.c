@@ -51,6 +51,7 @@ int menu_agenda(){
            "    3. Créer un contact (avec insertion dans la liste) ;\n"
            "    4. Créer un rendez-vous pour un contact (avec insertion dans la liste si le contact n’existe pas) ;\n"
            "    5. Supprimer un rendez-vous ;\n"
+           "    6. Sauvergarder les rendez-vous dans un fichier\n"
            "    6.Quitter.\n");
     char * actual_person_name ="" ;
     while (quit != 1){
@@ -119,7 +120,7 @@ int menu_agenda(){
                 break;
             }
             case '4':{       //creer et ajouter un rdv => fonctionnalité non fonctionnelle.
-                char *personne = scanString("Seletionner le proprietaire du rdv (nom prenom): ");
+                char *personne = scanString("Seletionner le proprietaire du rdv (nom ): ");
                 p_sk_cell_agenda cell = Search_list_simple_agenda(*mylist_agenda, personne);
                 if ( cell == NULL) {            //si la personne n'est pas dans l'agenda, va cree le contacte et l'jouter a la liste
                     cell = Create_New_cell_agenda (personne);
@@ -133,16 +134,25 @@ int menu_agenda(){
                 char *personne = scanString("Seletionner le proprietaire du rdv (nom prenom): ");
                 p_sk_cell_agenda cell = Search_list_simple_agenda(*mylist_agenda, personne);
                 if (cell == NULL) { //si la personne n'est pas dans l'agenda, on ne peut pas supprimer de rdv
-                    printf("Ce contact n'existe pas\n");
+                    printf("Ce contact n'existe pas, impossible de supprimer un rdv\n");
                     break;
+                }else{
+                    p_agenda agenda = cell->agenda;
+                    if (agenda->rdv_list == NULL){
+                        printf("Ce contact ne possède pas de rdv d'enregistre\n");
+                    }else{
+                        delete_search_rdv_obj(cell->agenda->rdv_list);
+                        //delete_search_rdv_date(cell->agenda->rdv_list);
+                    }
                 }
-                p_agenda agenda = cell->agenda;
-                if (agenda->rdv_list == NULL)
-                    printf("Ce contact ne possède pas de rdv d'enregistre\n");
-                delete_search_rdv(agenda);
                 break;
             }
             case '6': {
+                printf("Sauvegarde de la liste des contacts\n");
+                Save_rdv_in_file(*mylist_agenda);
+                break;
+            }
+            case '7': {
                 printf("Vous quittez l'application\n");
                 quit = 1;
                 break;
@@ -390,6 +400,31 @@ void Display_level_list_agenda (t_sk_list_agenda mylist, int level){
         temp = temp->values[level];
     }
     printf("NULL\n");
+    return;
+}
+
+void Save_rdv_in_file(t_sk_list_agenda agenda_list){
+    t_sk_cell_agenda* temp = agenda_list.head[0];
+    while (temp != NULL){
+        if (temp->agenda!=NULL){
+            t_cell_rdv* temp_rdv = temp->agenda->rdv_list->head;
+            while (temp_rdv !=NULL){
+                // ICI ON LIT LE RDV ET ECRIT DANS LE FICHIER DE SAUVEGARDE.
+                FILE *file = fopen("../sauvegarde_rdv.txt","w");
+                char format[] = "%s\t%d %d %d\t%d %d\t%d %d\t%s\n" ; // nom date heure_h heure_minute duree_h duree_min obj
+
+                fprintf(file,format, temp->agenda->personne->nom,
+                        temp_rdv->rdv->date->jour,temp_rdv->rdv->date->mois,temp_rdv->rdv->date->annee,
+                        temp_rdv->rdv->heure_rdv->heure,temp_rdv->rdv->heure_rdv->minute,
+                        temp_rdv->rdv->duree_rdv->heure, temp_rdv->rdv->duree_rdv->minute,
+                        temp_rdv->rdv->obj_rdv);
+                fclose(file);
+                temp_rdv = temp_rdv->next;
+            }
+        }
+        temp = temp->values[0];
+    }
+
     return;
 }
 

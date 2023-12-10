@@ -158,9 +158,9 @@ void test_complexité_graphe(){
 }
 
 int main() {
-    test_partie_1();
+    //test_partie_1();
     //test_partie_2();
     //test_complexité_graphe();
-    //test_partie3();
+    test_partie3();
     return 0;
 }
