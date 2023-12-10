@@ -5,7 +5,7 @@
 #ifndef PROJET__CELL_H
 #define PROJET__CELL_H
 
-
+// STRUCTURE............................................................................................................
 typedef struct s_sk_cell {
     int value;
     int level;
@@ -14,13 +14,11 @@ typedef struct s_sk_cell {
 
 typedef t_sk_cell *p_sk_cell;
 
-// FONCTIONS ASSOCIEES
+// FONCTIONS............................................................................................................
 
 p_sk_cell Create_cell_sk (int, int);
 
 void Delete_sk_cell(t_sk_cell*);
-
-
 
 
 #endif //PROJET__CELL_H

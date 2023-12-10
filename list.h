@@ -7,7 +7,7 @@
 #include "cell.h"
 #include "complementaire.h"
 
-
+// LES STRUCTURES .........................................................................
 typedef struct s_sk_list{
     t_sk_cell ** head;
     int max_level;
@@ -16,7 +16,7 @@ typedef struct s_sk_list{
 
 typedef  t_sk_list *p_sk_list;
 
-
+// FONCTIONS DE LA PARTIE 1...............................................................
 t_sk_list Create_empty_list(int);
 
 int is_Empty_list(t_sk_list);
@@ -29,17 +29,15 @@ void Display_list_simple (t_sk_list);
 
 void Display_level_list (t_sk_list , int );
 
-// PARTIE 2 : 
+// FONCTIONS DE LA PARTIE 2..............................................................................
 
 t_sk_list Create_level_list( int );
 
-int Search_list_level_part (int , int , t_sk_cell* , t_sk_list );
+int Search_list_level_part ( int , t_sk_list );
 
-int Search_list_upper_level(t_sk_list, int);
+int Search_list_upper_level(t_sk_list, int); //  recherche dichotomique appelant Serch_list_level_part
 
 int Search_list_simple(t_sk_list, int);
-
-// AUTRES :
 
 void Delete_sk_list(t_sk_list*);
 

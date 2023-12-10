@@ -1,3 +1,7 @@
+CE DOCUMENTS EST UN ESPACE DE TRAVAIL AVEC DES COPIES COLLER QUI NOUS ONT ETE NECESSAIRES.
+
+
+
 void Filling_agenda_w_contacts(int ncontact, t_sk_list_agenda* list_agenda, char* fichier_name){
 
     FILE * fichier = fopen(fichier_name, "r");
@@ -84,3 +88,38 @@ char *scanString(char* message) {
                 temp->values[0]= myentry;
                 temp = myentry;
                 n++;
+
+
+
+
+
+
+
+                   /*
+                    t_sk_cell* cell_s ;// = (t_sk_cell*) malloc(sizeof (t_sk_cell));
+                    cell_s = cell_d;
+                    while (cell_s->value <= val)
+                    {
+                        if (cell_s->values[level]==NULL)
+                            return 0; // on arrive a la fin de la liste et on n'a pas trouver
+                        cell_s = cell_s->values[level];
+                    }
+                    if (cell_s->value == val)
+                        return 1; //valeur trouver;
+                    else if (cell_s->value < val)
+                        return Search_list_level_part(level-1,val,cell_d->values[level-1]); //on repart de la cellule du debut mais du niveaux du dessous
+                    else
+                        return Search_list_level_part(level-1, val, cell_s->values[level-1]);
+                    */
+
+
+                    //while ??
+                    /*p_sk_cell temp = cell_depart->values[level];
+                            while (temp != NULL){
+                                if (temp->value == val){
+                                    return 1;
+                                }
+                                else{
+                                    temp = temp->values[level];
+                                }
+                            }*/

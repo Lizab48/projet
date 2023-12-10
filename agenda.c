@@ -1,6 +1,3 @@
-//
-// Created by Benjamin Ducasse on 19/11/2023.
-//
 
 #include "agenda.h"
 #include <stdlib.h>
@@ -8,19 +5,15 @@
 #include <stdio.h>
 
 char *scanString(char* message) {
-    int T_L = 10; //taille logique variable
+    int T_L = 10;                  //taille logique variable
     int index = 0;
-
-    // Allouer de la mémoire pour le tableau de caractères
     char* mystr = (char *)malloc(T_L * sizeof(char));
-
     printf("%s",message);
-    char c; // CHAT GPT MA DIT DE METTRE INT A LA PLACE MAIS J42I PAS COMPRIS... CHAR->> ook! vs INT->> ok! c'est a dire il double la premiere lettre
+    char c;
     while ((c = getchar()) != '\n') {
-        if (index == T_L - 1) { // On a plus la place dans le tableau
+        if (index == T_L - 1) { // Si on a atteint le nombre de caractères maximales
             T_L += 10;
             mystr = (char *)realloc(mystr, T_L * sizeof(char));
-
             if (mystr == NULL) {
                 printf("Erreur realloc\n");
                 return "";
@@ -30,17 +23,17 @@ char *scanString(char* message) {
         index++;
     }
     mystr[index] = '\0';
-
     return mystr;
 }
 
 p_contact Create_p_contact(char * name){
     p_contact contact = (p_contact) malloc(sizeof (t_contact));
     int i = 0;
-    while (name[i] != ' ' && name[i] != '\n' && name[i] != '\0'){
+    contact->nom = (char*)malloc(sizeof(char)*strlen(name));
+    while (name[i] != ' ' && name[i] != '\n' && name[i] != '\0' && name[i] != '_'){ // Dans les cas où : il n'y a pas de prenoms, nom et prenom sont separe d'un espace ou d'un _
         contact->nom[i]=name[i];
+        i++;
     }
-    i++;
     int j =i;
     while (name[i] != '\n' && name[i] != '\0'){
         contact->prenom[i-j]=name[i];
@@ -48,18 +41,17 @@ p_contact Create_p_contact(char * name){
     return contact;
 }
 
-t_sk_cell_agenda * Create_entry_agenda(int level, char* nom){ // ATENTION level = niveau partant de 0.
+t_sk_cell_agenda * Create_entry_agenda(int level, char* nom){ // ATENTION level => niveau partant de 0
     t_sk_cell_agenda* entry = (t_sk_cell_agenda*)malloc(sizeof(t_sk_cell_agenda));
     entry->value = nom;
     entry->level = level;
-    entry->agenda = NULL;
+    entry->agenda = Create_p_agenda(nom);
     entry->values = (t_sk_cell_agenda**) malloc(level * sizeof(t_sk_cell_agenda*));
     for (int i=0; i<=level ; i++){
         entry->values[i] = NULL;
     }
     return entry;
 }
-
 
 
 t_date* Create_t_date (int j, int m, int a){
@@ -69,6 +61,7 @@ t_date* Create_t_date (int j, int m, int a){
     date->annee = a;
     return date;
 }
+
 
 t_horaire* Create_t_heure (int h, int m){
     t_horaire *heure = (t_horaire*) malloc(sizeof (t_horaire));
@@ -91,13 +84,14 @@ t_cell_rdv * Create_t_cell_rdv ( t_rdv * rdv){
     t_cell_rdv* cell = (t_cell_rdv*) malloc(sizeof (t_cell_rdv));
     cell->rdv = rdv;
     cell->next = NULL;
-    return rdv;
+    return cell;
 }
 
 void add_rdv_to_p_agenda (p_agenda agenda, t_rdv* rdv){
     t_cell_rdv * cell = Create_t_cell_rdv(rdv) ;
-    if (agenda->rdv_list->head == NULL){ //si liste des rdv vide ajoute au debut
+    if (agenda->rdv_list->head == NULL){           //si liste des rdv est vide ajoute au debut
         agenda->rdv_list->head = cell;
+        Display_rdv(rdv);
     }
     else {
         // sinon ajoute a la fin
@@ -110,7 +104,7 @@ void add_rdv_to_p_agenda (p_agenda agenda, t_rdv* rdv){
     return;
 }
 
-void add_rdv (p_agenda agenda){// lance tout les fonctions necessaire pour ajouter un rdv
+void add_rdv (p_agenda agenda){// lance tout les fonctions necessaires pour ajouter un rdv
     int a,m,j,h1,m1,h2,m2;
     printf("Jour (le numéro): ");
     scanf("%d",&j);
@@ -125,7 +119,7 @@ void add_rdv (p_agenda agenda){// lance tout les fonctions necessaire pour ajout
     printf("Duree heure : ");
     scanf("%d",&h2);
     printf("Duree minute : ");
-    scanf("%d",&h2); // ici ca marche plus...
+    scanf("%d",&m2);
     char * obj = scanString("Objet du rdv : ");
     add_rdv_to_p_agenda(agenda,Create_t_rdv(Create_t_date(j,m,a), Create_t_heure(h1,m1), Create_t_heure(h2,m2),obj));
     printf("Le rdv a ete ajoute\n");
@@ -136,7 +130,7 @@ void add_rdv (p_agenda agenda){// lance tout les fonctions necessaire pour ajout
 
 p_agenda Create_p_agenda ( t_contact* name){
     p_agenda agenda = (p_agenda)malloc(sizeof (t_agenda));
-    agenda->personne = name;
+    agenda->personne = Create_p_contact(name);
     t_std_list_rdv* list_rdv = (t_std_list_rdv*) malloc(sizeof (t_std_list_rdv));
     list_rdv->head = NULL;
     agenda->rdv_list = list_rdv;
@@ -145,22 +139,39 @@ p_agenda Create_p_agenda ( t_contact* name){
 
 p_sk_cell_agenda Create_New_cell_agenda (char * name){
     p_sk_cell_agenda cell = Create_entry_agenda(1,name); //level cree de base 1
-    // pas sure.
     p_contact contact = Create_p_contact(name);
     cell->agenda = Create_p_agenda(contact);
     return cell;
 }
 
 
-//-------------------------FCT Affichage---------------------------
+//-------------------------FCT AFFICHAGE---------------------------
 
 void Display_rdv (t_rdv* rdv){
-    printf("RDV : %s\n", rdv->obj_rdv);
+    if (rdv->obj_rdv!= NULL){
+        printf("RDV : %s\n", rdv->obj_rdv);
+    }
     printf("     Le : %d/%d/%d \n",rdv->date->jour,rdv->date->mois,rdv->date->annee);
     printf("     A : %dh%d\n",rdv->heure_rdv->heure,rdv->heure_rdv->minute);
     printf("     De : %dh%d\n\n",rdv->duree_rdv->heure,rdv->duree_rdv->minute);
     return ;
 }
+
+void Display_list_rdv(t_std_list_rdv* list_rdv){
+    if (list_rdv->head == NULL){
+        printf("Il n'y a pas de rdv enregistre pour ce contact\n");
+    }
+    else{
+        p_cell_rdv cell_rdv = list_rdv->head;
+        while (cell_rdv != NULL){
+            Display_rdv(cell_rdv->rdv);
+            cell_rdv = cell_rdv->next;
+            printf("-----");
+        }
+    }
+    return;
+}
+
 
 
 
@@ -208,8 +219,7 @@ void Delete_sk_cell_agenda(t_sk_cell_agenda * cell){
     if (cell->agenda != NULL){
         Delete_agenda(cell->agenda);
     }
-    //Delete_agenda(cell->agenda);
-    free( cell);  // a finir.
+    free( cell);
     return;
 }
 
@@ -263,7 +273,4 @@ void Delete_date(t_date* d){
     free(d);
     return;
 }
-
-//-----------------------------Fonction partie 1 et 2 modifie---------------------------
-
 

@@ -11,8 +11,10 @@ void test_partie_1(){
     p_sk_cell cell = Create_cell_sk(18, 1); // 18: value , 1: level_max
     Insert_in_list_head ( &mylist , cell);
     printf(" la cellule de valeur 18 à 2 niveaux est inserée\n");
+
     printf(" AFFICHAGE NIVEAU 1 DE LA LISTE:\n");
     Display_level_list(mylist, 1);
+
     printf(" AFFICHAGE ENSEMBLE DE LA LISTE:\n");
     Display_list_simple (mylist);
 
@@ -41,8 +43,8 @@ void test_partie_2(){
     Display_list_simple(mylist);
     printf("\nAFFICHAGE LIST NIVEAUX : \n");
     Display_level_list(mylist, 2);
-    printf("\nOn a chercher la valeur 4 dans la liste, la fonction renvoie : %d\n",Search_list_simple(mylist ,4) );
-    printf("On a chercher la valeur 4 dans la liste, la fonction renvoie : %d\n",Search_list_upper_level(mylist , 2) );
+    printf("\nOn a chercher la valeur 2 dans la liste, la fonction renvoie : %d\n",Search_list_simple(mylist ,2) );
+    printf("On a chercher la valeur 2 de maière dichotomique dans la liste, la fonction renvoie : %d\n",Search_list_upper_level(mylist , 2) );
     printf ("Comparaison de compléxité : \n                             Recherche simple                 Recherche dichotomique\n");
     int recherche=0;
 
@@ -130,7 +132,7 @@ void test_partie3(){
 }
 
 void test_complexité_graphe(){
-    for (int level=1; level<=15; level++){
+    for (int level=1; level<=3; level++){
         FILE *log_file = fopen("../log.txt","w");
         char format[] = "%d\t%s\t%s\n" ;
         t_sk_list mylist = Create_level_list(level);
@@ -156,8 +158,8 @@ void test_complexité_graphe(){
 }
 
 int main() {
-    //test_partie_1();  //ok
-    test_partie_2();
+    test_partie_1();
+    //test_partie_2();
     //test_complexité_graphe();
     //test_partie3();
     return 0;

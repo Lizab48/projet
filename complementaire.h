@@ -18,6 +18,6 @@ typedef struct s_tab {
 
 t_tab* level(int);
 
-int power(int,int);
+int power(int,int);  // utile car la fonction pow() de math.h ne fonctionnait pas
 
 #endif //PROJET__COMPLEMENTAIRE_H
